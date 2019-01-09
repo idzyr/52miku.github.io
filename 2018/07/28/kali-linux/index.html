@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="google-site-verification" content="EnZSc6SM9x2nK10Jg8Lw5fILuDuboRf-ZdkoAFjgT-I" />
+  <meta name="360-site-verification" content="a180a989a4bfb0b5c6b9ce556ae4412a" />
+  <meta charset="utf-8">
+  
+  <title>Windows引导kali Linux实现双系统（U盘安装） | Bury 我们 past的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="欢迎来到Bury 我们 past的博客" />
+  
+  <meta name="description" content="先看我 安装前建议看一下图文教程,up主也看了此教程才出的视频。 适用于传统的BIOS引导MBR分区表，不支持UEFI引导GPT分区表。注意：   想安装Linux你必须能够熟练安装windows各版本，如果不能那么就不要折腾了，免得到时候电脑GG了。装机有风险，请备份好你的数据。 教程更正内容安装kali前Windows下操作 桌面——&amp;gt;右击此电脑——&amp;gt;属性——&amp;gt;高级系统设">
+<meta name="keywords" content="kali Linux,双系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows引导kali Linux实现双系统（U盘安装）">
+<meta property="og:url" content="https://52miku.top/2018/07/28/kali-linux/index.html">
+<meta property="og:site_name" content="Bury 我们 past的博客">
+<meta property="og:description" content="先看我 安装前建议看一下图文教程,up主也看了此教程才出的视频。 适用于传统的BIOS引导MBR分区表，不支持UEFI引导GPT分区表。注意：   想安装Linux你必须能够熟练安装windows各版本，如果不能那么就不要折腾了，免得到时候电脑GG了。装机有风险，请备份好你的数据。 教程更正内容安装kali前Windows下操作 桌面——&amp;gt;右击此电脑——&amp;gt;属性——&amp;gt;高级系统设">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/07/29/PaweVe.png">
+<meta property="og:updated_time" content="2018-07-30T13:32:18.241Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows引导kali Linux实现双系统（U盘安装）">
+<meta name="twitter:description" content="先看我 安装前建议看一下图文教程,up主也看了此教程才出的视频。 适用于传统的BIOS引导MBR分区表，不支持UEFI引导GPT分区表。注意：   想安装Linux你必须能够熟练安装windows各版本，如果不能那么就不要折腾了，免得到时候电脑GG了。装机有风险，请备份好你的数据。 教程更正内容安装kali前Windows下操作 桌面——&amp;gt;右击此电脑——&amp;gt;属性——&amp;gt;高级系统设">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/07/29/PaweVe.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Bury 我们 past</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>首页</span>
+                    </a>
+                    
+                    <a  href="/share">
+                        <i class="fa fa-retweet"></i>
+                        <span>共享</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>归档</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="https://res.cloudinary.com/miku52/image/upload/v1547017613/52miku.top_images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Bury 我们 past
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        Half极客的博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="哔哩哔哩动画" target="_blank" href="https://space.bilibili.com/26012356/#/">
+                            <i class="fa fa-tv fa-2x"></i></a>
+                    
+                        <a title="微博" target="_blank" href="https://weibo.com/u/5371899696?topnav=1&wvr=6&topsug=1">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-kali-linux" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Windows引导kali Linux实现双系统（U盘安装）
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/系统安装/">系统安装</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-07-28
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <iframe class="if_video" frameborder="0" width="100%" height="640" src="https://v.qq.com/iframe/player.html?vid=k0564u9t6e9&tiny=0&auto=0" allowfullscreen style=""></iframe>
+
+<h3 id="先看我"><a href="#先看我" class="headerlink" title="先看我"></a>先看我</h3><ol>
+<li>安装前建议看一下图文教程,up主也看了此教程才出的视频。</li>
+<li>适用于传统的BIOS引导MBR分区表，不支持UEFI引导GPT分区表。<br><strong style="color:red">注意：</strong></li>
+</ol>
+<ol>
+<li>想安装Linux你必须能够熟练安装windows各版本，如果不能那么就不要折腾了，免得到时候电脑GG了。装机有风险，请备份好你的数据。</li>
+<li>教程更正内容安装kali前Windows下操作 <code>桌面——&gt;右击此电脑——&gt;属性——&gt;高级系统设置——&gt;高级——启动和故障恢复——&gt;设置</code> 按图中所示操作，完成确认。<br><img src="https://s1.ax1x.com/2018/07/29/PaweVe.png" alt="kali_01" title="01"></li>
+</ol>
+<hr>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
+<li>8gb U盘（自行购买）</li>
+<li>kali linux镜像<br>  <a href="https://www.kali.org/downloads/" target="_blank" rel="noopener">https://www.kali.org/downloads/</a></li>
+<li>Universal USB Installer（linux镜像刻录U盘工具）<br>  <a href="https://universal-usb-installer.en.softonic.com/" target="_blank" rel="noopener">https://universal-usb-installer.en.softonic.com/</a></li>
+<li>分区助手（选择性下载）<br>  <a href="https://www.disktool.cn/" target="_blank" rel="noopener">https://www.disktool.cn/</a></li>
+<li>分区神器（DiskGenius）<br>  <a href="https://www.diskgenius.cn/" target="_blank" rel="noopener">https://www.diskgenius.cn/</a></li>
+<li>引导工具（EasyBCD）<br>  <a href="https://neosmart.net/EasyBCD/" target="_blank" rel="noopener">https://neosmart.net/EasyBCD/</a></li>
+</ul>
+<hr>
+<h3 id="视频详情"><a href="#视频详情" class="headerlink" title="视频详情"></a>视频详情</h3><blockquote>
+<p>图文教程引用</p>
+</blockquote>
+<p>  <a href="https://blog.sina.com.cn/s/blog_8c8d4e710102wggl.html" target="_blank" rel="noopener">https://blog.sina.com.cn/s/blog_8c8d4e710102wggl.html</a><br><strong style="color:red">图文教程内容更正</strong></p>
+<ol>
+<li>不要使用软碟通制作，无法启动</li>
+<li>引导写入最后高级设置驱动器设置里先设置为boot看能否启动如果不能可以设置为c\</li>
+</ol>
+<hr>
+<h3 id="卸载方法"><a href="#卸载方法" class="headerlink" title="卸载方法"></a>卸载方法</h3><p>直接用分区神器删除Linux分区，重新分区可以格式为其它分区格式然后用引导工具删除Linux引导</p>
+<hr>
+<h3 id="BGM"><a href="#BGM" class="headerlink" title="BGM"></a>BGM</h3><blockquote>
+<p>BGM引用</p>
+</blockquote>
+<ul>
+<li>与你最后的夏天<br>  <a href="https://music.163.com/#/m/song?id=315061&amp;userid=446083135" target="_blank" rel="noopener">https://music.163.com/#/m/song?id=315061&amp;userid=446083135</a></li>
+<li>なんでもないや 没什么大不了的（Cover：Radwimps）<br>  <a href="https://music.163.com/#/m/song?id=450795499&amp;userid=446083135" target="_blank" rel="noopener">https://music.163.com/#/m/song?id=450795499&amp;userid=446083135</a></li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2018年07月30日 21:32</p>
+        <p>原始链接： <a class="post-url" href="/2018/07/28/kali-linux/" title="Windows引导kali Linux实现双系统（U盘安装）">https://52miku.top/2018/07/28/kali-linux/</a></p>
+        <footer>
+            <a href="https://52miku.top">
+                <img src="https://res.cloudinary.com/miku52/image/upload/v1547017613/52miku.top_images/logo.png" alt="Bury 我们 past">
+                Bury 我们 past
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃泡面~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="https://res.cloudinary.com/miku52/image/upload/v1547017612/52miku.top_images/wechat_code.png" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="https://res.cloudinary.com/miku52/image/upload/v1547017612/52miku.top_images/wechat_code.png">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="https://res.cloudinary.com/miku52/image/upload/v1547017612/52miku.top_images/alipay_code.png">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://52miku.top/2018/07/28/kali-linux/&title=《Windows引导kali Linux实现双系统（U盘安装）》 — Bury 我们 past的博客&pic=https://s1.ax1x.com/2018/07/30/PdN6Rx.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://52miku.top/2018/07/28/kali-linux/&title=《Windows引导kali Linux实现双系统（U盘安装）》 — Bury 我们 past的博客&source=欢迎来到Bury 我们 past的博客" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://52miku.top/2018/07/28/kali-linux/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Windows引导kali Linux实现双系统（U盘安装）》 — Bury 我们 past的博客&url=https://52miku.top/2018/07/28/kali-linux/&via=https://52miku.top" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://52miku.top/2018/07/28/kali-linux/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://52miku.top/2018/07/28/kali-linux/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/kaliLinux/" class="color1">kali Linux</a>
+      
+    <a href="/tags/双系统/" class="color4">双系统</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#先看我"><span class="post-toc-text">先看我</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#工具"><span class="post-toc-text">工具</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#视频详情"><span class="post-toc-text">视频详情</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#卸载方法"><span class="post-toc-text">卸载方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BGM"><span class="post-toc-text">BGM</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/07/30/OBS/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          OBS简单入门
+        
+      </span>
+    </a>
+  
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by 
+      &copy; 2019 Bury 我们 past<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://52miku.top",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="搜索">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="分类">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="标签">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Chrome插件/">Chrome插件</a><a class="category-link" href="/categories/应用市场/">应用市场</a><a class="category-link" href="/categories/系统安装/">系统安装</a><a class="category-link" href="/categories/视频录制/">视频录制</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/GoogleChrome/" style="font-size: 10px;">GoogleChrome</a> <a href="/tags/OBS/" style="font-size: 10px;">OBS</a> <a href="/tags/PC录屏软件/" style="font-size: 10px;">PC录屏软件</a> <a href="/tags/apkpure/" style="font-size: 10px;">apkpure</a> <a href="/tags/app市场/" style="font-size: 10px;">app市场</a> <a href="/tags/chrome插件/" style="font-size: 10px;">chrome插件</a> <a href="/tags/kali-Linux/" style="font-size: 10px;">kali Linux</a> <a href="/tags/使用教程/" style="font-size: 10px;">使用教程</a> <a href="/tags/双系统/" style="font-size: 10px;">双系统</a> <a href="/tags/干净的浏览器/" style="font-size: 10px;">干净的浏览器</a> <a href="/tags/开源软件/" style="font-size: 10px;">开源软件</a> <a href="/tags/推荐/" style="font-size: 10px;">推荐</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">菜单</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>首页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/share">
+                    <i class="fa fa-retweet"></i><span>共享</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>归档</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">标签</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/GoogleChrome/" style="font-size: 10px;">GoogleChrome</a> <a href="/tags/OBS/" style="font-size: 10px;">OBS</a> <a href="/tags/PC录屏软件/" style="font-size: 10px;">PC录屏软件</a> <a href="/tags/apkpure/" style="font-size: 10px;">apkpure</a> <a href="/tags/app市场/" style="font-size: 10px;">app市场</a> <a href="/tags/chrome插件/" style="font-size: 10px;">chrome插件</a> <a href="/tags/kali-Linux/" style="font-size: 10px;">kali Linux</a> <a href="/tags/使用教程/" style="font-size: 10px;">使用教程</a> <a href="/tags/双系统/" style="font-size: 10px;">双系统</a> <a href="/tags/干净的浏览器/" style="font-size: 10px;">干净的浏览器</a> <a href="/tags/开源软件/" style="font-size: 10px;">开源软件</a> <a href="/tags/推荐/" style="font-size: 10px;">推荐</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="搜索..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
